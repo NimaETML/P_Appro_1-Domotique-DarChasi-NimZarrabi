@@ -1,0 +1,36 @@
+﻿services:
+  mosquitto:
+    image: eclipse-mosquitto:latest                                 #Image broker
+    container_name: mosquitto                                       #Nom du conteneur
+    volumes:                                                        #Volumes de la configuration, data et log
+      - ./mosquitto/config:/docker2/mosquitto/config
+      - ./mosquitto/data:/docker2/mosquitto/data
+      - ./mosquitto/log:/docker2/mosquitto/log
+    ports:                                                         
+      - "1883:1883"                                                 # Port http pour brokers MQTT
+    networks:                                                       #Réseau partagé
+      - mqtt-network    
+    command: mosquitto -c /mosquitto/config/mosquitto.conf          #Execution fichier de configuration
+
+  esphome:
+    image: ghcr.io/esphome/esphome                                  #Image du Esp-Home
+    container_name: esphome                                         #Nom du conteneur
+
+    volumes:                                                        #Volumes pour sauvegarde local de la configuration et log 
+      - ./home/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    ports:                                                          #Ports utilisé pour le Esp-Home
+      - 6052:6052
+    command:                                                        #Création des utilisateurs
+      - dashboard
+      - /config
+      - --username
+      - ${ESPHOME_USER}
+      - --password
+      - ${ESPHOME_PASSWORD}
+    networks:                                                       #Réseau partagé
+      - mqtt-network
+
+networks:
+  mqtt-network:
+    driver: bridge

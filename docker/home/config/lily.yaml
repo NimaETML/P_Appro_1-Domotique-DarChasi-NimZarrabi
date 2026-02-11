@@ -1,0 +1,32 @@
+esphome:
+  name: lily
+  friendly_name: Lily
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: esp-idf
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "/aIXaWWLIDLLl3dM08V2gU2t//JGq8L1LxzcXQWfIZg="
+
+ota:
+  - platform: esphome
+    password: "2e33567d41e1d4408999c2a064a00d71"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Lily Fallback Hotspot"
+    password: "awPZcE6NKK96"
+
+captive_portal:
+    

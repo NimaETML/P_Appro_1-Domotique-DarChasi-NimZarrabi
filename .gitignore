@@ -1,0 +1,6 @@
+*.env
+
+docker/cache/*
+docker/localtime/*
+
+mosquitto/config/pwsd/*
