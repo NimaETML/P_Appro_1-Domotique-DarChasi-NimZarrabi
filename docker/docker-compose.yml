@@ -3,9 +3,9 @@
     image: eclipse-mosquitto:latest                                 #Image broker
     container_name: mosquitto                                       #Nom du conteneur
     volumes:                                                        #Volumes de la configuration, data et log
-      - ./mosquitto/config:/docker2/mosquitto/config
-      - ./mosquitto/data:/docker2/mosquitto/data
-      - ./mosquitto/log:/docker2/mosquitto/log
+      - ./mosquitto/config:/docker/mosquitto/config
+      - ./mosquitto/data:/docker/mosquitto/data
+      - ./mosquitto/log:/docker/mosquitto/log
     ports:                                                         
       - "1883:1883"                                                 # Port http pour brokers MQTT
     networks:                                                       #Réseau partagé
